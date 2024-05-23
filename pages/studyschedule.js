@@ -26,6 +26,7 @@ const StudySchedule = () => {
   const [user, loading] = useAuthState(auth);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);  
   const route = useRouter();
   const routeData = route.query;
   
@@ -56,7 +57,7 @@ const StudySchedule = () => {
         username: user.displayName,
         email: user.email,
         date: selectedDate.toISOString(),
-      });
+      });      
       
       setMessage({ schedule_detail: "" });
       console.log("Success 1");
@@ -90,6 +91,7 @@ const StudySchedule = () => {
 
   // Group messages by date
   const groupedMessages = {};
+
   messages.forEach((msg) => {
     const date = new Date(msg.date);
     const today = new Date();
@@ -100,6 +102,8 @@ const StudySchedule = () => {
       heading = "Today";
     } else if (diffDays === 1) {
       heading = "Tomorrow";
+    } else if (diffDays === -1) {
+      heading = "Yesterday";
     } else {
       heading = date.toLocaleDateString(); // Format the date as desired
     }
@@ -107,6 +111,20 @@ const StudySchedule = () => {
     groupedMessages[heading] = groupedMessages[heading] || [];
     groupedMessages[heading].push(msg);
   });
+
+  // Sort groupedMessages by date
+  const sortedGroupedMessages = Object.keys(groupedMessages)
+    .sort((a, b) => {
+      // For "Today", "Tomorrow", and "Yesterday", they should always come first
+      if (a === "Today" || a === "Tomorrow" || a === "Yesterday") return -1;
+      if (b === "Today" || b === "Tomorrow" || b === "Yesterday") return 1;
+      // For other dates, sort by date
+      return new Date(a) - new Date(b);
+    })
+    .reduce((acc, key) => {
+      acc[key] = groupedMessages[key];
+      return acc;
+    }, {});
 
   const handleToggleComplete = async (id) => {
     const docRef = doc(db, "schedule", id);
@@ -137,26 +155,32 @@ const StudySchedule = () => {
           onSubmit={submitMessage}
           className="relative max-w-[500px] text-sm flex flex-col gap-2"
         >
-          <input
-            aria-label="Your message"
-            placeholder="Your study plans"
-            name="entry"
-            type="text"
-            required
-            className="pl-4 pr-32 py-2 focus:ring-blue-500 focus:border-blue-500 block w-full border-neutral-300 rounded-md bg-gray-100 text-neutral-900"
-            value={message.schedule_detail}
-            onChange={(e) => setMessage({ ...message, schedule_detail: e.target.value })}
-            onFocus={() => setCalendarOpen(true)}
-            onBlur={() => setCalendarOpen(false)}
-          />
+        <input
+          aria-label="Your message"
+          placeholder="Your study plans"
+          name="entry"
+          type="text"
+          required
+          className="pl-4 pr-32 py-2 focus:ring-blue-500 focus:border-blue-500 block w-full border-neutral-300 rounded-md bg-gray-100 text-neutral-900"
+          value={message.schedule_detail}
+          onChange={(e) => setMessage({ ...message, schedule_detail: e.target.value })}
+          onFocus={() => {
+            setInputFocused(true);
+            setCalendarOpen(true);
+          }}
+          onBlur={() => setInputFocused(false)}
+        />
 
-          {calendarOpen && (
+          {calendarOpen && (inputFocused || document.activeElement === document.body) && (
             <Calendar
               onChange={setSelectedDate}
               value={selectedDate}
               className="border-neutral-300 rounded-md bg-gray-100 text-neutral-900"
+              onClickDay={() => setInputFocused(true)}
+              onBlur={() => setCalendarOpen(false)}
             />
           )}
+
           <button
             className="flex items-center justify-center bg-blue-500 text-white rounded-md py-2"
             type="submit"
@@ -166,21 +190,22 @@ const StudySchedule = () => {
         </form>
 
 
+
         {/* Display all messages */}
         <div className="mt-1">
-          {Object.entries(groupedMessages).map(([heading, plans]) => (
-            <div key={heading}>
-              <h2 className="text-lg font-semibold mt-4">{heading}</h2>
-              {plans.map((plan) => (
-                <div key={plan.id} className="mb-4 text-sm flex gap-1 flex-col md:flex-row md:items-center">
-                  <p className="">{plan.schedule_detail}</p>
-                  <button onClick={() => handleToggleComplete(plan.id)}>
-                    Complete
-                  </button>
-                </div>
-              ))}
-            </div>
-          ))}
+        {Object.entries(sortedGroupedMessages).map(([heading, plans]) => (
+          <div key={heading}>
+            <h2 className="text-lg font-semibold mt-4">{heading}</h2>
+            {plans.map((plan) => (
+              <div key={plan.id} className="mb-4 text-sm flex gap-1 flex-col md:flex-row md:items-center">
+                <p className="">{plan.schedule_detail}</p>
+                <button onClick={() => handleToggleComplete(plan.id)}>
+                  Complete
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
         </div>
       </section>
     </div>
