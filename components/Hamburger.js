@@ -2,20 +2,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../utils/firebase";
-import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
-
-const audioFiles = ['/music/intro.wav', '/music/Dreamers.wav', '/music/WakaWaka.wav', '/music/Ozuna.wav','/music/OnTopOfTheWorld.wav', '/music/HayyaHayya.wav', '/music/Ramenez.wav', '/music/TheNights.wav', '/music/WeAreOneOleOla.wav', '/music/LaLaLa.wav','/music/WavingFlag.wav'];
 
 export const MobileNav = ({ open, setOpen}) => {
   const [user, loading] = useAuthState(auth);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioIndex, setAudioIndex] = useState(0);
-  const [audio, setAudio] = useState(null);
-  
-    useEffect(() => {
-      setAudio(new Audio(audioFiles[audioIndex]));
-    }, [audioIndex]);    
-    
     const handleLinkClick = () => {
       setOpen(false);
     };
@@ -33,87 +22,25 @@ export const MobileNav = ({ open, setOpen}) => {
             </Link>
           </div>
           <div className="py-4 text-sm md:text-base font-semibold">
-            <Link href="/legends" legacyBehavior>
-              <a onClick={handleLinkClick}>Players</a>
-            </Link>
-          </div>
-          {user && (
-            <>
-              <div className="py-4 text-sm md:text-base font-semibold">
-                <Link href="/chat" legacyBehavior>
-                  <a onClick={handleLinkClick}>Chat</a>
-                </Link>
-              </div>    
-              <div className="py-4 text-sm md:text-base font-semibold">
-                <Link href="/ranking" legacyBehavior>
-                  <a onClick={handleLinkClick}>Ranking</a>
-                </Link>
-              </div>
-            </>
-          )}
-          <div className="text-sm">
-          {!user && (
-              <div className="flex flex-col justify-center items-center">
-                <button
-                  className="text-black text-sm transition-colors duration-200 hover:text-slate-500 flex items-center gap-1 py-4"
-                  onClick={() => setIsPlaying(!isPlaying)}
-                >
-                    <span className="text-sm">
-                        {isPlaying ? <p>Pause</p> : <p>Play</p>}
-                    </span>
-                    
-                    <span className="text-sm">
-                        {isPlaying ? <AiFillPauseCircle /> : <AiFillPlayCircle />}
-                    </span>
-                </button>              
-                <Link href="/auth/Login" legacyBehavior>
-                  <a className="py-4 font-semibold" onClick={handleLinkClick}>Join Now</a>
-                </Link>
-              </div>
-            )}
-            {user && (
-              <div className="flex items-center gap-4 py-4">
-                <button
-                  className="text-black text-sm transition-colors duration-200 hover:text-slate-500 flex items-center gap-1"
-                  onClick={() => setIsPlaying(!isPlaying)}
-                >
-                    <span className="text-sm">
-                        {isPlaying ? <AiFillPauseCircle /> : <AiFillPlayCircle />}
-                    </span>
-
-                    <span className="text-sm">
-                        {isPlaying ? <p>Pause</p> : <p>Play</p>}
-                    </span>
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="py-4 text-sm md:text-base font-semibold">
             {user && (
               <div className="flex items-center gap-4">
                 <Link href="/dashboard" legacyBehavior>
-                  <a onClick={handleLinkClick}>Your Profile</a>
+                  <a onClick={handleLinkClick}>Profile</a>
                 </Link>
               </div>
             )}
           </div>
+
+          <div className="py-4 text-sm md:text-base font-semibold">
+            {user && (
+              <div className="flex items-center gap-4">
+                <Link href="/studyschedule" legacyBehavior>
+                  <a onClick={handleLinkClick}>Schedule</a>
+                </Link>
+              </div>
+            )}
+          </div>          
         </div>
-        {isPlaying && (
-          <div className="fixed bottom-0 left-0 right-0 p-2 bg-white flex justify-center">
-            <p className="text-sm font-semibold text-center">Song: {audioFiles[audioIndex].replace(/^\/music\/|\.wav$/g, '')}</p>
-            <audio
-              autoPlay
-              src={audioFiles[audioIndex]}
-              onEnded={() => {
-                if (audioIndex === audioFiles.length - 1) {
-                  setAudioIndex(0);
-                } else {
-                  setAudioIndex(audioIndex + 1);
-                }
-              }}
-            />         
-          </div>
-        )}
       </div>
     );
   };

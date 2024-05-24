@@ -16,17 +16,12 @@ const Footer = () => {
                             </Link>
                         </li>
                         <li className="mb-4">
-                            <Link href="/chat" legacyBehavior>
-                            <a className="hover:underline">Chat</a>
+                            <Link href="/studyschedule" legacyBehavior>
+                            <a className="hover:underline">Schedule</a>
                             </Link>
                         </li>
                         {user && (
                         <>
-                            <li className="mb-4">
-                                <Link href="/ranking" legacyBehavior>
-                                <a className="hover:underline">Ranking</a>
-                                </Link>
-                            </li>
                             <li className="mb-4">
                                 <Link href="/dashboard" legacyBehavior>
                                 <a className="hover:underline">Setting</a>
