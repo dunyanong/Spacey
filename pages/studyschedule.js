@@ -1,32 +1,13 @@
-import { FaCalendarAlt, FaPlus } from "react-icons/fa";
-import {
-  Box,
-  Button,
-  Input,
-  IconButton,
-  useDisclosure,
-  VStack,
-  Heading,
-  Flex
-} from "@chakra-ui/react";
-import { Calendar } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  updateDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  deleteDoc
-} from "firebase/firestore";
-import "react-toastify/dist/ReactToastify.css";
+import { collection, query, where, orderBy, limit, onSnapshot, doc, updateDoc, addDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { Box, VStack, Heading, Flex, Input, IconButton, Button } from "@chakra-ui/react";
+import { FaCalendarAlt, FaPlus } from "react-icons/fa";
+import { useDisclosure } from "@chakra-ui/react";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import styled from '@emotion/styled';
 import { auth, db } from "../utils/firebase";
 import Head from "next/head";
 
@@ -49,41 +30,54 @@ const StudySchedule = () => {
       console.log("Message is too long 🤡");
       return;
     }
-
-    if (message?.hasOwnProperty("id")) {
-      const docRef = doc(db, "schedule", message.id);
-      const updatedMessage = { ...message, timestamp: serverTimestamp() };
-      await updateDoc(docRef, updatedMessage);
-      console.log("Success 1");
-    } else {
-      const collectionRef = collection(db, "schedule");
-      await addDoc(collectionRef, {
-        ...message,
-        timestamp: serverTimestamp(),
-        user: user.uid,
-        avatar: user.photoURL,
-        username: user.displayName,
-        email: user.email,
-        date: selectedDate.toISOString(),
-      });
-
-      setMessage({ schedule_detail: "" });
-      console.log("Success 1");
+  
+    try {
+      if (message?.hasOwnProperty("id")) {
+        const docRef = doc(db, "schedule", message.id);
+        const updatedMessage = { ...message, timestamp: serverTimestamp() };
+        await updateDoc(docRef, updatedMessage);
+        console.log("Document updated successfully:", updatedMessage);
+      } else {
+        const collectionRef = collection(db, "schedule");
+        const newMessage = {
+          ...message,
+          timestamp: serverTimestamp(),
+          user: user.uid,
+          avatar: user.photoURL,
+          username: user.displayName,
+          email: user.email,
+          date: selectedDate.toISOString(),
+        };
+        await addDoc(collectionRef, newMessage);
+        console.log("Document added successfully:", newMessage);
+        setMessage({ schedule_detail: "" });
+      }
+    } catch (error) {
+      console.error("Error adding or updating document: ", error);
     }
   };
 
   useEffect(() => {
-    const q = query(collection(db, "schedule"), orderBy("timestamp", "desc"), limit(10));
+    if (!user) return;
+    
+    const q = query(
+      collection(db, "schedule"),
+      where("user", "==", user.uid),  // Filter by authenticated user's UID
+      orderBy("timestamp", "desc"),
+      limit(10)
+    );
+  
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const messages = snapshot.docs.map((doc) => ({
+      const fetchedMessages = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setMessages(messages);
+      setMessages(fetchedMessages);
     });
-
-    return unsubscribe;
-  }, []);
+  
+    return () => unsubscribe();
+  }, [user]);
+  
 
   const checkUser = async () => {
     if (loading) return;
@@ -102,8 +96,8 @@ const StudySchedule = () => {
   messages.forEach((msg) => {
     const date = new Date(msg.date);
     const today = new Date();
-    const diffDays = Math.floor((date - today) / (1000 * 60 * 60 * 24));
-  
+    const diffDays = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
+
     let heading = "";
     if (diffDays === 0) {
       heading = "Today";
@@ -114,11 +108,10 @@ const StudySchedule = () => {
     } else {
       heading = date.toLocaleDateString(); // Format the date as desired
     }
-  
+
     groupedMessages[heading] = groupedMessages[heading] || [];
     groupedMessages[heading].push(msg);
   });
-  
 
   const sortedGroupedMessages = Object.keys(groupedMessages)
     .sort((a, b) => {
@@ -174,28 +167,23 @@ const StudySchedule = () => {
             />            
           </Flex>
           {isOpen && (
-            <Box mb={2}>
-              <Calendar
-                onChange={setSelectedDate}
-                value={selectedDate}
-              />
-            </Box>
+            <ResponsiveBox mb={2}>
+              <Calendar onChange={setSelectedDate} value={selectedDate} />
+            </ResponsiveBox>
           )}
-
         </Box>
         <Box w="full">
           {Object.entries(sortedGroupedMessages).map(([heading, plans]) => (
             <Box key={heading} mb={4}>
               <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Heading as="h2" size="md" mb={2}>{heading}</Heading>
-             
               </Box>
               {plans.map((plan) => (
                 <Box key={plan.id} mb={2} display="flex" alignItems="center" justifyContent="space-between">
                   <Box>{plan.schedule_detail}</Box>
                   <Button size="sm" onClick={() => handleToggleComplete(plan.id)}>
                     Complete
-                  </Button>                     
+                  </Button>
                 </Box>
               ))}
             </Box>
@@ -208,3 +196,18 @@ const StudySchedule = () => {
 
 export default StudySchedule;
 
+const ResponsiveBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  max-width: 100%; /* Default max width */
+  
+  @media (min-width: 600px) {
+    /* Medium screens */
+    max-width: 600px; /* Adjust as needed */
+  }
+
+  @media (min-width: 900px) {
+    /* Large screens */
+    max-width: 800px; /* Adjust as needed */
+  }
+`;
