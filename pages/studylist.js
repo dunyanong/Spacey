@@ -175,30 +175,7 @@ const StudyList = () => {
       </Head>
       <VStack spacing={6} pt={10} pb={12} align="start">
         <Heading as="h1" size="xl">Study List 📚</Heading>
-        <Box as="form" onSubmit={submitMessage} w="full">
-          <Flex mb={2} align="center" gap={2}>
-            <Input
-              placeholder="Your study plans"
-              value={message.schedule_detail}
-              onChange={(e) => setMessage({ ...message, schedule_detail: e.target.value })}
-            />
-            <IconButton
-              icon={<FaCalendarAlt />}
-              aria-label="Toggle Calendar"
-              onClick={isOpen ? onClose : onOpen}
-            />
-            <IconButton
-              icon={<FaPlus />}
-              aria-label="Add"
-              type="submit"
-            />            
-          </Flex>
-          {isOpen && (
-            <ResponsiveBox mb={2}>
-              <Calendar onChange={setSelectedDate} value={selectedDate} />
-            </ResponsiveBox>
-          )}
-        </Box>
+        
         <Box w="full">
           {Object.entries(sortedGroupedMessages).map(([heading, plans]) => (
             <Box key={heading} mb={4}>

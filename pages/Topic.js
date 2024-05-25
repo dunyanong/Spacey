@@ -82,7 +82,7 @@ export default function TopicPage() {
                                     <input 
                                         id={`labels-range-input-${index}`} 
                                         type="range" 
-                                        defaultValue="1000" 
+                                        defaultValue="50" 
                                         min="0" 
                                         max="100" 
                                         className="w-full h-2 bg-gray-200 text-black rounded-lg appearance-none cursor-pointer" 
