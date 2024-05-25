@@ -7,7 +7,7 @@ const SiYoutubemusic = dynamic(() => import('react-icons/si').then((module) => m
 const GiVote = dynamic(() => import('react-icons/gi').then((module) => module.GiVote), { ssr: false });
 const AiFillGithub = dynamic(() => import('react-icons/ai').then((module) => module.AiFillGithub), { ssr: false });
 
-import LegendaryPlayers from '../public/Spacey Logo (2).png';
+import LegendaryPlayers from '../public/Spacey (new) Logo  .png';
 import Link from 'next/link';
 
 export default function Home() {
@@ -28,7 +28,7 @@ export default function Home() {
       <div className='flex flex-col items-center justify-center min-h-screen -mt-20'>
         <section className="flex flex-col items-center">
           <div className='flex flex-col items-center md:px-5 lg:px-20 pt-20 pb-8 md:py-10 lg:py-10 h-auto'>
-            <Image src={LegendaryPlayers} className='' alt='GOAT Image' priority={true}/>
+          <Image src={LegendaryPlayers} alt="Spacey Logo" width={70} height={86} />
             <div className="flex flex-col items-center gap-4 pt-6">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
                 Welcome to Spacey!
