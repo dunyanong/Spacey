@@ -7,7 +7,7 @@ const SiYoutubemusic = dynamic(() => import('react-icons/si').then((module) => m
 const GiVote = dynamic(() => import('react-icons/gi').then((module) => module.GiVote), { ssr: false });
 const AiFillGithub = dynamic(() => import('react-icons/ai').then((module) => module.AiFillGithub), { ssr: false });
 
-import LegendaryPlayers from '../public/legend-images/Spacey.png';
+import LegendaryPlayers from '../public/Spacey Logo (2).png';
 import Link from 'next/link';
 
 export default function Home() {
@@ -25,38 +25,37 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
       
-      <div className='md:px-20 lg:px-20 pb-8 md:py-0 lg:py-0 h-auto'>
-        <section className="flex flex-col items-start">
-          <div className='md:px-5 lg:px-20 pt-20 pb-8 md:py-10 lg:py-10 h-auto'>
+      <div className='flex flex-col items-center justify-center min-h-screen -mt-20'>
+        <section className="flex flex-col items-center">
+          <div className='flex flex-col items-center md:px-5 lg:px-20 pt-20 pb-8 md:py-10 lg:py-10 h-auto'>
             <Image src={LegendaryPlayers} className='' alt='GOAT Image' priority={true}/>
-            <div className="flex flex-col items-start gap-4 pt-6">
+            <div className="flex flex-col items-center gap-4 pt-6">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
                 Welcome to Spacey!
               </h1>
               <p className="text-slate-500 sm:text-xl">
-                &#39;&#39;A new way of studying&#39;&#39;
+                &#39;&#39;Your Time, Your Success&#39;&#39;
               </p>
             </div>
             <div className="flex gap-4 pt-6">
-              <Link href="/schedule" legacyBehavior>
+              <Link href="auth/Login" legacyBehavior>
                 <a
                   className="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-slate-900 text-white hover:bg-slate-700 h-11 px-8 rounded-md"              
                 >
                  Show Schedule
                 </a>
               </Link>
-              <Link href="/studylist" legacyBehavior>
-              <a
-                className="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2  disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-transparent border border-slate-200 hover:bg-slate-100 h-11 px-8 rounded-md"
-              >
-                Customise Study Schedule 
-              </a>
+              <Link href="/schedule" legacyBehavior>
+                <a
+                  className="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2  disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-transparent border border-slate-200 hover:bg-slate-100 h-11 px-8 rounded-md"
+                >
+                  Customise Study Schedule 
+                </a>
               </Link>
             </div>
           </div>
         </section>
       </div> 
-
     </div>
   )
 }
