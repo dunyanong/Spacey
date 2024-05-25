@@ -21,14 +21,14 @@ export default function Schedule() {
 
         <div className="w-full max-w-sm mx-auto px-4 mb-60">
             <div className="text-center flex flex-col items-center">
-                <IoBookOutline className="w-24 h-24 text-gray-800 dark:text-white"/>
+                <IoBookOutline className="w-24 h-24 text-gray-800"/>
                 <h1 className="text-3xl font-bold mt-4 mb-3">Choose Your Syllabus</h1>
             </div>
             <div className="space-y-4 grid grid-cols-1">
                 <Link href="/a_level" legacyBehavior>
                     <a className="block text-center border border-gray-200 rounded-md shadow-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-white text-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-200 p-6 h-full">
                         <div className="flex flex-col items-center justify-center space-y-2 h-full">
-                            <TbCircleLetterA className="w-12 h-12 text-gray-800 dark:text-white" />
+                            <TbCircleLetterA className="w-12 h-12 text-gray-800" />
                             <span className="text-lg font-semibold">A - Level</span>
                         </div>
                     </a>
