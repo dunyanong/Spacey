@@ -3,20 +3,22 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 const topics = {
-    Chinese: ['Topic 1', 'Topic 2', 'Topic 3'],
-    English: ['Topic A', 'Topic B', 'Topic C'],
-    French: ['Sujet 1', 'Sujet 2', 'Sujet 3'],
-    Business: ['Topic X', 'Topic Y', 'Topic Z'],
-    Economics: ['Topic E1', 'Topic E2', 'Topic E3'],
-    Geography: ['Topic G1', 'Topic G2', 'Topic G3'],
-    History: ['Topic H1', 'Topic H2', 'Topic H3'],
-    Philosophy: ['Topic P1', 'Topic P2', 'Topic P3'],
-    Psychology: ['Topic PS1', 'Topic PS2', 'Topic PS3'],
-    Biology: ['Topic B1', 'Topic B2', 'Topic B3'],
-    Chemistry: ['Topic C1', 'Topic C2', 'Topic C3'],
-    Mathematics: ['Topic M1', 'Topic M2', 'Topic M3'],
-    Physics: ['Topic PH1', 'Topic PH2', 'Topic PH3'],
-  };
+  Chinese: ['Classical Chinese Literature', 'Modern Chinese History', 'Chinese Poetry'],
+  English: ['Shakespearean Drama', 'Modernist Literature', 'Postcolonial Literature'],
+  French: ['La Révolution Française', 'Le Symbolisme en Littérature', 'Littérature Contemporaine'],
+  Business: ['Business Strategy and Planning', 'Marketing and Market Research', 'Financial Management'],
+  Economics: ['Microeconomic Theory', 'Macroeconomic Policy', 'International Trade'],
+  Geography: ['Physical Geography and Climate Change', 'Urban Geography and Development', 'Environmental Management'],
+  History: ['The Tudor Period', 'The Cold War', 'The French Revolution'],
+  Philosophy: ['Ethics and Moral Philosophy', 'Philosophy of Religion', 'Political Philosophy'],
+  Psychology: ['Cognitive Psychology', 'Developmental Psychology', 'Clinical Psychology'],
+  Biology: ['Cell Biology', 'Genetics and Evolution', 'Ecology and Conservation'],
+  Chemistry: ['Organic Chemistry', 'Inorganic Chemistry', 'Physical Chemistry'],
+  Mathematics: ['Calculus and Analysis', 'Algebra and Number Theory', 'Statistics and Probability'],
+  Physics: ['Classical Mechanics', 'Quantum Physics', 'Thermodynamics']
+};
+
+
 
 export default function TopicPage() {
     const router = useRouter();
@@ -33,13 +35,13 @@ export default function TopicPage() {
         <div className="w-full max-w-sm mx-auto px-4 mb-60">
           <div className="text-left mb-6">
             <h1 className="text-5xl font-bold mt-10 mb-10 text-black">{subject}</h1>
-            <p className="-mt-5 mb-10 ml-3 text-black">Topics in {subject}</p>
+            <p className="-mt-5 mb-10 text-black">Topics in {subject}</p>
           </div>
           <div className="text-center">
             <div className="flex flex-col items-center space-y-3">
               {subjectTopics.map((topic, index) => (
-                <div key={index} className="w-full flex items-center border border-black rounded-lg px-4 py-2 mb-3">
-                  <div className="text-2xl mr-4">{topic}</div>
+                <div key={index} className="w-full flex flex-col items-center border border-gray-600 rounded-lg px-4 py-2 mb-3 relative overflow-hidden bg-background p-2">
+                  <div className="text-sm mr-4">{topic}</div>
                   <div className="relative w-full">
                     <label htmlFor={`labels-range-input-${index}`} className="sr-only">Labels range</label>
                     <input 
@@ -48,9 +50,9 @@ export default function TopicPage() {
                       defaultValue="1000" 
                       min="100" 
                       max="1500" 
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" 
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" 
                     />
-                    <div className="absolute w-full flex justify-between text-sm text-gray-500 dark:text-gray-400 -bottom-6">
+                    <div className="w-full flex justify-between text-sm text-gray-500 -bottom-6">
                       <span>Easy</span>
                       <span>OK</span>
                       <span>Intermediate</span>

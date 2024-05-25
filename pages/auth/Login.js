@@ -24,7 +24,7 @@ const Login = () => {
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      route.push("/rules");
+      route.push("/schedule");
   
       toast.success("Signed in 🤙 ", {
         position: toast.POSITION.TOP_CENTER,
@@ -44,7 +44,7 @@ const Login = () => {
     if (!route || !route.push) return;
     
     if (user) {
-      route.push("/rules");
+      route.push("/schedule");
     }
   }, [user]);
 
