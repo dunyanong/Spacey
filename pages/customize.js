@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
-import LegendaryPlayers from '../public/Spacey Logo (2).png';
+import LegendaryPlayers from '../public/Spacey (new) Logo  .png';
 
 export default function Customise() {
     return (
@@ -20,7 +20,7 @@ export default function Customise() {
             </Head>
             <div className="flex items-center space-x-4">
                 <div className="w-24 h-auto">
-                    <Image src={LegendaryPlayers} alt="Spacey Logo" />
+                    <Image src={LegendaryPlayers} alt="Spacey Logo" width={70} height={86} />
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold">Spacey</h1>
             </div>
