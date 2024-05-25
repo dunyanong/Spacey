@@ -34,18 +34,18 @@ export default function Home() {
                 Welcome to Spacey!
               </h1>
               <p className="text-slate-500 sm:text-xl">
-                &#39;&#39;Your Time, Your Success&#39;&#39;
+                &#39;&#39;A new way of studying&#39;&#39;
               </p>
             </div>
             <div className="flex gap-4 pt-6">
-              <Link href="auth/Login" legacyBehavior>
+              <Link href="/schedule" legacyBehavior>
                 <a
                   className="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-slate-900 text-white hover:bg-slate-700 h-11 px-8 rounded-md"              
                 >
                  Show Schedule
                 </a>
               </Link>
-              <Link href="/schedule" legacyBehavior>
+              <Link href="/studylist" legacyBehavior>
               <a
                 className="inline-flex items-center justify-center text-sm font-medium transition-colors focus:outline-none focus:ring-2  disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-transparent border border-slate-200 hover:bg-slate-100 h-11 px-8 rounded-md"
               >

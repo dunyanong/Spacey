@@ -16,7 +16,7 @@ const Footer = () => {
                             </Link>
                         </li>
                         <li className="mb-4">
-                            <Link href="/studyschedule" legacyBehavior>
+                            <Link href="/studylist" legacyBehavior>
                             <a className="hover:underline">Schedule</a>
                             </Link>
                         </li>

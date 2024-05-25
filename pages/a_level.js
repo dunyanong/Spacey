@@ -17,13 +17,14 @@ const ButtonLink = ({ href, subjectName, icon: Icon, children }) => (
 
 const categories = [
   {
-    title: 'Languages',
+    title: 'STEM',
     subjects: [
-      { name: 'Chinese', href: '/Topic', icon: FaLanguage },
-      { name: 'English', href: '/Topic', icon: RiEnglishInput },
-      { name: 'French', href: '/Topic', icon: GrLanguage },
+      { name: 'Biology', href: '/Topic', icon: FaMicroscope },
+      { name: 'Chemistry', href: '/Topic', icon: FaFlask },
+      { name: 'Mathematics', href: '/Topic', icon: FaCalculator },
+      { name: 'Physics', href: '/Topic', icon: FaReact },
     ],
-  },
+  },  
   {
     title: 'Humanities',
     subjects: [
@@ -34,14 +35,13 @@ const categories = [
       { name: 'Philosophy', href: '/Topic', icon: GiThink },
       { name: 'Psychology', href: '/Topic', icon: FaBrain },
     ],
-  },
+  },  
   {
-    title: 'STEMs',
+    title: 'Languages',
     subjects: [
-      { name: 'Biology', href: '/Topic', icon: FaMicroscope },
-      { name: 'Chemistry', href: '/Topic', icon: FaFlask },
-      { name: 'Mathematics', href: '/Topic', icon: FaCalculator },
-      { name: 'Physics', href: '/Topic', icon: FaReact },
+      { name: 'Chinese', href: '/Topic', icon: FaLanguage },
+      { name: 'English', href: '/Topic', icon: RiEnglishInput },
+      { name: 'French', href: '/Topic', icon: GrLanguage },
     ],
   },
 ];
