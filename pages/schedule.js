@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
-
+import { TbCircleLetterA } from "react-icons/tb";
+import { MdOutlineChangeCircle } from "react-icons/md";
+import { IoBookOutline } from "react-icons/io5";
 
 export default function Schedule() {
     return (
@@ -20,20 +21,24 @@ export default function Schedule() {
 
         <div className="w-full max-w-sm mx-auto px-4 mb-60">
             <div className="text-center flex flex-col items-center">
-                <svg className="w-24 h-24 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.03v13m0-13c-2.819-.831-4.715-1.076-8.029-1.023A.99.99 0 0 0 3 6v11c0 .563.466 1.014 1.03 1.007 3.122-.043 5.018.212 7.97 1.023m0-13c2.819-.831 4.715-1.076 8.029-1.023A.99.99 0 0 1 21 6v11c0 .563-.466 1.014-1.03 1.007-3.122-.043-5.018.212-7.97 1.023"/>
-                </svg>
+                <IoBookOutline className="w-24 h-24 text-gray-800 dark:text-white"/>
                 <h1 className="text-3xl font-bold mt-4 mb-3">Choose Your Syllabus</h1>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 grid grid-cols-1">
                 <Link href="/a_level" legacyBehavior>
-                    <a className="block w-full text-center text-lg font-semibold transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-900 text-white hover:bg-white hover:text-black hover:border-black border border-transparent py-3 rounded-md my-10">
-                        A - Level
+                    <a className="block text-center border border-gray-200 rounded-md shadow-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-white text-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-200 p-6 h-full">
+                        <div className="flex flex-col items-center justify-center space-y-2 h-full">
+                            <TbCircleLetterA className="w-12 h-12 text-gray-800 dark:text-white" />
+                            <span className="text-lg font-semibold">A - Level</span>
+                        </div>
                     </a>
                 </Link>
-                <Link href="" legacyBehavior> 
-                    <a className="block w-full text-center text-lg font-semibold transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-slate-900 text-white hover:bg-white hover:text-black hover:border-black border border-transparent py-3 rounded-md my-2">
-                        Customize on your own
+                <Link href="/Customize" legacyBehavior> 
+                    <a className="block text-center border border-gray-200 rounded-md shadow-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-white text-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-200 p-6 h-full">
+                        <div className="flex flex-col items-center justify-center space-y-2 h-full">
+                            <MdOutlineChangeCircle className="w-12 h-12 text-gray-800 dark:text-white" />
+                            <div className="text-lg font-semibold">Customize on your own</div>
+                        </div>
                     </a>
                 </Link>
             </div>
