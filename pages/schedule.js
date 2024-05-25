@@ -36,7 +36,7 @@ export default function Schedule() {
                 <Link href="/customize" legacyBehavior> 
                     <a className="block text-center border border-gray-200 rounded-md shadow-md transition-colors duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-white text-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-200 p-6 h-full">
                         <div className="flex flex-col items-center justify-center space-y-2 h-full">
-                            <MdOutlineChangeCircle className="w-12 h-12 text-gray-800 dark:text-white" />
+                            <MdOutlineChangeCircle className="w-12 h-12 text-gray-800" />
                             <div className="text-lg font-semibold">Customize on your own</div>
                         </div>
                     </a>
