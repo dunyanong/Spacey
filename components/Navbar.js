@@ -22,7 +22,7 @@ const Navbar = () => {
     <div className="flex gap-4 justify-center items-center">
             {user && (
             <div className="text-sm">
-              <Link href="/studyschedule" legacyBehavior>
+              <Link href="/studylist" legacyBehavior>
                   <a className='text-black transition-colors duration-200 hover:text-slate-500'>Schedule</a>
               </Link>
             </div>

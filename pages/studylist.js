@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import { collection, query, where, orderBy, limit, onSnapshot, doc, updateDoc, addDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { collection, query, where, orderBy, limit, onSnapshot, doc, updateDoc, addDoc, deleteDoc, serverTimestamp, getDoc } from "firebase/firestore";
 import { Box, VStack, Heading, Flex, Input, IconButton, Button } from "@chakra-ui/react";
 import { FaCalendarAlt, FaPlus } from "react-icons/fa";
 import { useDisclosure } from "@chakra-ui/react";
@@ -124,10 +124,37 @@ const StudyList = () => {
       return acc;
     }, {});
 
-  const handleToggleComplete = async (id) => {
-    const docRef = doc(db, "schedule", id);
-    await deleteDoc(docRef);
-  };
+    const handleToggleComplete = async (id) => {
+      try {
+        const docRef = doc(db, "schedule", id);
+        const docSnap = await getDoc(docRef);
+        const currentData = docSnap.data();
+        
+        if (docSnap.exists() && currentData.confidence < 100) {
+          let updatedConfidence = parseFloat(currentData.confidence) + 30; // Increase confidence by 30
+          
+          // Ensure updatedConfidence does not exceed 100
+          if (updatedConfidence > 100) {
+            updatedConfidence = 100;
+          }
+          
+          let newDate = new Date(currentData.date);
+          newDate.setDate(newDate.getDate() + 2); // Add 2 days to the date
+          
+          await updateDoc(docRef, {
+            confidence: String(updatedConfidence),
+            date: newDate.toISOString(),
+          });
+          
+          console.log("Document updated successfully.");
+        } else {
+          console.log("Document does not exist or confidence is already 100.");
+        }
+      } catch (error) {
+        console.error("Error updating document:", error);
+      }
+    };    
+    
 
   return (
     <Box className="md:p-5 w-full max-w-3xl mx-auto pt-20">
@@ -178,14 +205,37 @@ const StudyList = () => {
               <Box display="flex" alignItems="center" justifyContent="space-between">
                 <Heading as="h2" size="md" mb={2}>{heading}</Heading>
               </Box>
-              {plans.map((plan) => (
-                <Box key={plan.id} mb={2} display="flex" alignItems="center" justifyContent="space-between">
-                  <Box>{plan.schedule_detail}</Box>
-                  <Button size="sm" onClick={() => handleToggleComplete(plan.id)}>
-                    Complete
-                  </Button>
-                </Box>
-              ))}
+              {plans.map((plan) => {
+                // Calculate the color based on confidence
+                let color = '';
+                if (plan.confidence >= 90) {
+                  color = 'lightgreen';
+                } else if (plan.confidence >= 80) {
+                  color = '#ADFF2F'; 
+                } else if (plan.confidence >= 70) {
+                  color = '#7FFF00'; 
+                } else if (plan.confidence >= 60) {
+                  color = 'lightyellow';
+                } else if (plan.confidence >= 50) {
+                  color = '#FFFFE0'; 
+                } else if (plan.confidence >= 40) {
+                  color = '#FFD700';
+                } else if (plan.confidence >= 30) {
+                  color = '#FFA500';
+                } else if (plan.confidence >= 20) {
+                  color = '#FF8C00';
+                } else {
+                  color = '#FF6347';
+                }
+                return (
+                  <Box key={plan.id} mb={2} display="flex" alignItems="center" justifyContent="space-between">
+                    <Box>{plan.topic}</Box>
+                    <Button size="sm" style={{ backgroundColor: color }} onClick={() => handleToggleComplete(plan.id)}>
+                      Completed {plan.confidence} %
+                    </Button>
+                  </Box>
+                );
+              })}
             </Box>
           ))}
         </Box>
