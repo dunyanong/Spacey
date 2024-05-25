@@ -8,7 +8,7 @@ import { GiThink } from "react-icons/gi";
 
 const ButtonLink = ({ href, subjectName, icon: Icon, children }) => (
   <Link href={{ pathname: href, query: { subject: subjectName } }} legacyBehavior>
-    <a className="flex items-center text-2xl border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-colors duration-300 mb-3">
+    <a className="flex items-center sm:text-2xl text-lg border border-black rounded-lg px-4 py-2 hover:bg-black hover:text-white transition-colors duration-300 mb-3">
       <Icon className="mr-2" />
       {children}
     </a>
@@ -36,7 +36,7 @@ const categories = [
     ],
   },
   {
-    title: 'Mathematics and Sciences',
+    title: 'STEMs',
     subjects: [
       { name: 'Biology', href: '/Topic', icon: FaMicroscope },
       { name: 'Chemistry', href: '/Topic', icon: FaFlask },
@@ -68,11 +68,11 @@ export default function Schedule() {
         </div>
         {categories.map((category, index) => (
           <div key={index}>
-            <div className="text-left mb-6">
+            <div className="text-left">
               <h1 className="text-3xl text-center font-bold mt-4 mb-3 text-black">{category.title}</h1>
             </div>
             <div className="text-center">
-              <div className="flex flex-col items-center space-y-3">
+              <div className="flex flex-col items-center">
                 {category.subjects.map((subject, subIndex) => (
                   <ButtonLink key={subIndex} href={subject.href} subjectName={subject.name} icon={subject.icon}>
                     {subject.name}

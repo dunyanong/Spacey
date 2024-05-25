@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import { auth, db } from "../utils/firebase";
 import Head from "next/head";
 
-const StudySchedule = () => {
+const StudyList = () => {
   const [message, setMessage] = useState({ schedule_detail: "" });
   const [messages, setMessages] = useState([]);
   const [user, loading] = useAuthState(auth);
@@ -194,7 +194,7 @@ const StudySchedule = () => {
   );
 };
 
-export default StudySchedule;
+export default StudyList;
 
 const ResponsiveBox = styled(Box)`
   display: flex;
