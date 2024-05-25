@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { collection, query, where, orderBy, limit, onSnapshot, doc, updateDoc, addDoc, deleteDoc, serverTimestamp, getDocs } from "firebase/firestore";
 import { Box, VStack, Heading, Flex, Input, IconButton, Button, Text } from "@chakra-ui/react";
-import { FaPlus } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
 import { useDisclosure } from "@chakra-ui/react";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -19,6 +19,7 @@ const AddSubTopic = () => {
     const [messages, setMessages] = useState([]);
     const [user, loading] = useAuthState(auth);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isOpened, setIsOpened] = useState(false);
     const route = useRouter();
     const routeData = route.query;
 
@@ -64,11 +65,18 @@ const AddSubTopic = () => {
             console.log("Document added successfully:", newMessage);
             setTopic({ topic: "" });
             setMessage({ schedule_detail: "", confidence: 50 });
+
+            route.push('/studylist');
           }
         } catch (error) {
           console.error("Error adding or updating document: ", error);
         }
       };    
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+        setIsOpened(false);
+    };
   
     return (
       <Box className="md:p-5 w-full max-w-3xl mx-auto pt-20">
@@ -97,18 +105,24 @@ const AddSubTopic = () => {
                 onChange={(e) => setTopic({ ...topic, topic: e.target.value })}
               />
               <IconButton
-                icon={<FaPlus />}
-                aria-label="Add"
-                type="submit"
+                icon={<FaCalendar />}
+                aria-label="Open Calendar"
+                onClick={() => setIsOpened(true)}
               />
             </Flex>
-            <ResponsiveBox mb={2}>
-              <Calendar onChange={setSelectedDate} value={selectedDate} />
-            </ResponsiveBox>
+
+            {isOpened && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={() => setIsOpened(false)}></div>
+                <ResponsiveBox mb={2} className="z-50">
+                  <Calendar onChange={handleDateChange} value={selectedDate} />
+                </ResponsiveBox>
+              </div>        
+            )}            
             <div className="w-full flex flex-col items-center border border-gray-600 rounded-lg px-4 py-2 mb-3 relative overflow-hidden bg-background p-2">
               <div className="text-md font-medium">What is your confidence?</div>
               <div className="relative w-full">
-                <label className="sr-only">Labels range</label>
+                <label className="sr-only">Confidence Range</label>
                 <input
                   type="range"
                   defaultValue="50"
