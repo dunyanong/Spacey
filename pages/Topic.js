@@ -75,7 +75,7 @@ export default function TopicPage() {
                 <div className="text-center">
                     <div className="flex flex-col items-center space-y-3">
                         {subjectTopics.map((topic, index) => (
-                            <div key={index} className="w-full flex flex-col items-center border border-gray-600 rounded-lg px-4 py-2 mb-3 relative overflow-hidden bg-background p-2">
+                            <div key={index} className="w-full flex flex-col items-center border border-gray-200 rounded-lg px-4 py-2 mb-3 relative overflow-hidden p-2">
                                 <div className="text-md font-medium">{topic}</div>
                                 <div className="relative w-full">
                                     <label htmlFor={`labels-range-input-${index}`} className="sr-only">Labels range</label>
