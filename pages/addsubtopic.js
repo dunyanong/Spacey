@@ -145,9 +145,9 @@ const AddSubTopic = () => {
   
             <div className='flex justify-between items-center mt-10'>
               <Link href="/a_level" passHref>
-                <button className="mt-10 text-blue-500">Go back</button>
+                  <button className="mt-10 px-4 py-2 border border-black text-black bg-white hover:bg-black hover:text-white transition-colors duration-300 rounded-lg">  Go back</button>
               </Link>
-              <button className="mt-10 text-blue-500" type="submit">Submit</button>
+              <button className="mt-10 px-4 py-2 border border-black text-white bg-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg"  type="submit">Submit</button>
             </div>
           </Box>
         </VStack>
