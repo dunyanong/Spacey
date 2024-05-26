@@ -45,7 +45,7 @@ export default function Home() {
                   Show Schedule
                 </a>
               </Link>
-              <Link href="/schedule" legacyBehavior>
+              <Link href="/studylist" legacyBehavior>
                 <a
                   className="inline-flex items-center justify-center text-xs sm:text-sm font-medium transition-colors focus:outline-none focus:ring-2  disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 bg-transparent border border-slate-200 hover:bg-slate-100 h-11 px-4 sm:px-8 rounded-md"
                 >
