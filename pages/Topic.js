@@ -100,10 +100,14 @@ export default function TopicPage() {
                 </div>
                 <div className='flex justify-between items-center'>
                     <Link href="/a_level" passHref>
-                        <button className="mt-10 text-blue-500">Go back</button>
+                        <button className="mt-10 px-4 py-2 border border-black text-black bg-white hover:bg-black hover:text-white transition-colors duration-300 rounded-lg">
+                            Go back
+                        </button>
                     </Link>
                     <Link href="/studylist" passHref>
-                      <button className="mt-10 text-blue-500" onClick={submitTopic}>Submit</button>
+                        <button className="mt-10 px-4 py-2 border border-black text-white bg-black hover:bg-white hover:text-black transition-colors duration-300 rounded-lg" onClick={submitTopic}>
+                            Submit
+                        </button>
                     </Link>                    
                 </div>
             </div>
