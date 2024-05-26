@@ -39,7 +39,28 @@ export const MobileNav = ({ open, setOpen}) => {
                 </Link>
               </div>
             )}
-          </div>          
+          </div>    
+          
+          <div className="py-4 text-sm md:text-base font-semibold">
+            {user && (
+              <div className="flex items-center gap-4">
+                <Link href="/studylist" legacyBehavior>
+                  <a onClick={handleLinkClick}>Add</a>
+                </Link>
+              </div>
+            )}
+          </div> 
+
+          <div className="py-4 text-sm md:text-base font-semibold">
+            {user && (
+              <div className="flex items-center gap-4">
+                <Link href="/studylist" legacyBehavior>
+                  <a onClick={handleLinkClick}>Syllabus</a>
+                </Link>
+              </div>
+            )}
+          </div> 
+
         </div>
       </div>
     );

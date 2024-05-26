@@ -27,6 +27,21 @@ const Navbar = () => {
               </Link>
             </div>
             )}
+            {user && (
+            <div className="text-sm">
+              <Link href="/addsubtopic" legacyBehavior>
+                  <a className='text-black transition-colors duration-200 hover:text-slate-500'>Add</a>
+              </Link>
+            </div>
+            )}
+            {user && (
+            <div className="text-sm">
+              <Link href="/schedule" legacyBehavior>
+                  <a className='text-black transition-colors duration-200 hover:text-slate-500'>Syllabus</a>
+              </Link>
+            </div>
+            )}
+
             {!user && (
               <Link href="/auth/Login" legacyBehavior>
                 <a className="text-black text-sm transition-colors duration-200 hover:text-slate-500">Join Now</a>
