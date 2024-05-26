@@ -44,7 +44,7 @@ export const MobileNav = ({ open, setOpen}) => {
           <div className="py-4 text-sm md:text-base font-semibold">
             {user && (
               <div className="flex items-center gap-4">
-                <Link href="/studylist" legacyBehavior>
+                <Link href="/addsubtopic" legacyBehavior>
                   <a onClick={handleLinkClick}>Add</a>
                 </Link>
               </div>
@@ -54,7 +54,7 @@ export const MobileNav = ({ open, setOpen}) => {
           <div className="py-4 text-sm md:text-base font-semibold">
             {user && (
               <div className="flex items-center gap-4">
-                <Link href="/studylist" legacyBehavior>
+                <Link href="/schedule" legacyBehavior>
                   <a onClick={handleLinkClick}>Syllabus</a>
                 </Link>
               </div>
