@@ -61,14 +61,14 @@ export default function Schedule() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <div className="w-full max-w-6xl mx-auto px-4 mb-60 text-center">
+      <div className="w-full mx-auto px-4 mb-60 text-center">
         <div className="mb-12">
-          <h1 className="text-5xl font-bold mt-10 mb-3 text-black">Topic</h1>
+          <h1 className="text-5xl font-bold mt-20 md:mt-10 mb-3 text-black">Topic</h1>
           <p className="text-xl mb-10 text-black">Make Your Choice!</p>
         </div>
         <div className="flex flex-wrap justify-center">
           {categories.map((category, index) => (
-            <div key={index} className="bg-white border border-gray-300 rounded-lg shadow-lg p-6 m-4 max-w-xs w-full">
+            <div key={index} className="bg-white border border-gray-300 rounded-lg shadow-lg p-6 my-4 md:m-4 md:max-w-xs w-full">
               <h1 className="text-3xl font-bold mb-4 text-black text-center">{category.title}</h1>
               <div className="flex flex-wrap justify-center">
                 {category.subjects.map((subject, subIndex) => (
